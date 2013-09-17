@@ -18,11 +18,10 @@ class Perlin : public Module
         int m_octaves;
         float m_scale;
         float m_persitence;
-        float m_lowBound;
-        float m_highBound;
+        float m_gain;
     public:
         Perlin(int s);
-        Perlin(int seed, int oct, float scale, float pers, float low, float high);
+        Perlin(int seed, int oct, float scale, float pers, float gain);
         ~Perlin();
 
         virtual float getValue(float x, float y);
@@ -31,7 +30,7 @@ class Perlin : public Module
         void setOctaves(int o);
         void setScale(float s);
         void setPersitence(float p);
-        void setBounds(float low, float high);
+        void setGain(float g);
 };
 
 } // end namespace Noise
