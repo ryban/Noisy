@@ -32,7 +32,7 @@ namespace utils
 
     float contour(float v);
 
-    float bound(float high, float low, float n);
+    float bound(float low, float high, float n);
 
 	float clamp(float x, float low, float high);
 
