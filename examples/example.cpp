@@ -160,13 +160,14 @@ int main()
     bmp.saveToFile("ridge.png");
     std::cout << "Ridged saved\n";
 
-    noisy::Perlin perlin(time(0), 48, 0.01, 0.5, 0.0, 1.0);
+    noisy::Perlin perlin(time(0), 48, 0.01, 0.5, 2.5);
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
         {
             Pixel p;
             float n = perlin.getValue(float(x), float(y));
+            n = noisy::utils::bound(0.0, 1.0, n);
             int grey = floor(255 * n);
             if(grey > 255) grey = 255;
             if(grey < 0) grey = 0;
