@@ -148,9 +148,8 @@ int main()
         {
             Pixel p;
             float n = ridge.getValue(float(x), float(y));
+            n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
-            if(grey > 255) grey = 255;
-            if(grey < 0) grey = 0;
             p.r = grey;
             p.g = grey;
             p.b = grey;
@@ -160,7 +159,7 @@ int main()
     bmp.saveToFile("ridge.png");
     std::cout << "Ridged saved\n";
 
-    noisy::Perlin perlin(time(0), 48, 0.01, 0.5, 2.5);
+    noisy::Perlin perlin(time(0), 24, 0.01, 0.5, 2.5);
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
@@ -168,9 +167,9 @@ int main()
             Pixel p;
             float n = perlin.getValue(float(x), float(y));
             n = noisy::utils::bound(0.0, 1.0, n);
+            // octave noise does not remain within the [-1, 1] range, so clamp the ends
+            n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
-            if(grey > 255) grey = 255;
-            if(grey < 0) grey = 0;
             p.r = grey;
             p.g = grey;
             p.b = grey;
@@ -179,4 +178,22 @@ int main()
     }
     bmp.saveToFile("perlin.png");
     std::cout << "Perlin saved\n";
+
+    noisy::Simplex simplex(time(0));
+    for(int x = 0; x < imgSize; x++)
+    {
+        for(int y = 0; y < imgSize; y++)
+        {
+            Pixel p;
+            float n = simplex.getValue(float(x)*0.02, float(y)*0.02);
+            n = noisy::utils::bound(0.0, 1.0, n);
+            int grey = floor(255 * n);
+            p.r = grey;
+            p.g = grey;
+            p.b = grey;
+            bmp.setPixel(x, y, p);
+        }
+    }
+    bmp.saveToFile("simplex.png");
+    std::cout << "Simplex saved\n";
 }
