@@ -12,11 +12,12 @@ private:
     float m_low;
     float m_high;
     float m_oldLow;
-    float oldHigh;
+    float m_oldHigh;
 
     Module *m_source;
 public:
     Bound(Module *source, float low, float high, float oldLow=-1.0, float oldHigh=1.0);
+    ~Bound();
 
     void setSource(Module *source);
     void setBounds(float low, float high);

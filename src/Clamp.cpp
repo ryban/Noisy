@@ -4,13 +4,15 @@
 namespace noisy
 {
 
-Clamp::Clamp(Module *source, float low, float high, float oldLow=-1.0, float oldHigh=1.0)
+Clamp::Clamp(Module *source, float low, float high)
 {
     m_source = source;
     m_low = low;
     m_high = high;
-    m_oldLow = oldLow;
-    m_oldHigh = oldHigh;
+}
+
+Clamp::~Clamp()
+{
 }
 
 void Clamp::setSource(Module *source)

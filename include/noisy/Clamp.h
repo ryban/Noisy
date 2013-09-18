@@ -15,6 +15,7 @@ private:
     Module *m_source;
 public:
     Clamp(Module *source, float low, float high);
+    ~Clamp();
 
     void setSource(Module *source);
     void setBounds(float low, float high);
