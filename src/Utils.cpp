@@ -78,9 +78,10 @@ namespace utils
     }
     // bounds an input value n (assumed to be originally bounded to -1 to 1)
     // to low to high.
-    float bound(float low, float high, float n)
+    float bound(float n, float low, float high, float oldLow, float oldHigh)
     {
-        return (((n+1.f)/2.f)*(high-low)) + low;
+        n = (n+(oldHigh-oldLow))/(oldHigh+((oldHigh-oldLow)/2.f));
+        return (n*(high-low)) + low;
     }
 
 	float clamp(float x, float low, float high)
