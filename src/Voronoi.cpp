@@ -70,23 +70,7 @@ float Voronoi::getValue(float x, float y)
             }
         }
     }
-/*
-    float value;
-    if (m_enableDistance)
-    {
-        // Determine the distance to the nearest seed point.
-        float xDist = xCandidate - x;
-        float yDist = yCandidate - y;
-        float zDist = zCandidate - z;
-        value = (sqrt(xDist * xDist + yDist * yDist + zDist * zDist)) * SQRT_3 - 1.0;
-    }else
-    {
-        value = 0.0;
-    }
-*/
-
-    // Return the calculated distance with the displacement value applied.
-    return /*value +*/ (m_displacement * simplex.getValue((int)(floor (xCandidate)),
+    return (m_displacement * simplex.getValue((int)(floor (xCandidate)),
                                                       (int)(floor (yCandidate))));
 }
 
@@ -138,25 +122,10 @@ float Voronoi::getValue(float x, float y, float z)
             }
         }
     }
-/*
-    float value;
-    if (m_enableDistance)
-    {
-        // Determine the distance to the nearest seed point.
-        float xDist = xCandidate - x;
-        float yDist = yCandidate - y;
-        float zDist = zCandidate - z;
-        value = (sqrt(xDist * xDist + yDist * yDist + zDist * zDist)) * SQRT_3 - 1.0;
-    }else
-    {
-        value = 0.0;
-    }
-*/
 
-    // Return the calculated distance with the displacement value applied.
-    return /*value*/ + (m_displacement * simplex.getValue((int)(floor (xCandidate)),
-                                                      (int)(floor (yCandidate)),
-                                                      (int)(floor (zCandidate))));
+    return (m_displacement * simplex.getValue((int)(floor (xCandidate)),
+                                              (int)(floor (yCandidate)),
+                                              (int)(floor (zCandidate))));
 }
 
 } // namespace noisy
