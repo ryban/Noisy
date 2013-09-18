@@ -6,13 +6,18 @@ namespace noisy
 
 Simplex::Simplex(int seed)
 {
-	m_seed = seed;
-	initPerm();
+	setSeed(seed);
 }
 
 
 Simplex::~Simplex()
 {
+}
+
+void setSeed(int s)
+{
+    m_seed = s;
+    initPerm();
 }
 
 // initialize the permuations to generate 

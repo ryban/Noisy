@@ -11,8 +11,9 @@ Perlin::Perlin(int seed)
     m_octaves = 1;
     m_scale = 1.0;
     m_persitence = 0.5;
+    m_gain = 2.0;
 
-    simplex = new Simplex(seed);
+    simplex.setSeed(seed);
 }
 
 Perlin::Perlin(int seed, int oct, float scale, float pers, float gain)
@@ -23,17 +24,13 @@ Perlin::Perlin(int seed, int oct, float scale, float pers, float gain)
     m_persitence = pers;
     m_gain = gain;
 
-    simplex = new Simplex(seed);
-}
-
-Perlin::~Perlin()
-{
-    delete simplex;
+    simplex.setSeed(seed);
 }
 
 void Perlin::setSeed(int s)
 {
     m_seed = s;
+    simplex.setSeed(s);
 }
 void Perlin::setOctaves(int o)
 {
@@ -64,7 +61,7 @@ float Perlin::getValue(float x, float y)
 
     for(int i = 0; i < m_octaves; i++)
     {
-        n += amp * simplex->getValue(x*f, y*f);
+        n += amp * simplex.getValue(x*f, y*f);
         f *= m_gain;
         amp *= m_persitence;
     }
@@ -83,11 +80,11 @@ float Perlin::getValue(float x, float y, float z)
 
     for(int i = 0; i < m_octaves; i++)
     {
-        n += amp * simplex->getValue(x*f, y*f, z*f);
+        n += amp * simplex.getValue(x*f, y*f, z*f);
         f *= m_gain;
         amp *= m_persitence;
     }
     return n;
 }
 
-} // end namespace Noise
+} // end namespace noisy

@@ -35,7 +35,7 @@ class RidgedMulti : public Module
 		void calculateFrequencies();
 		float ridge(float n);
 
-		Simplex *simplex;
+		Simplex simplex;
 };
 
 } // end namespace noisy

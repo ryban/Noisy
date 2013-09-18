@@ -13,7 +13,7 @@ namespace noisy
 RidgedMulti::RidgedMulti(int seed)
 {
 	m_frequencies = NULL;
-	simplex = new Simplex(seed);
+	simplex.setSeed(seed);
 }
 
 RidgedMulti::RidgedMulti(int seed, int oct, float scale, float lac, float off, float H, float gain)
@@ -27,21 +27,19 @@ RidgedMulti::RidgedMulti(int seed, int oct, float scale, float lac, float off, f
 	m_octaves = oct;
 	m_scale = scale;
 	calculateFrequencies();
-	simplex = new Simplex(m_seed);
+	simplex.setSeed(seed);
 }
 
 
 RidgedMulti::~RidgedMulti()
 {
 	delete [] m_frequencies;
-	delete simplex;
 }
 
 void RidgedMulti::setSeed(int s)
 {
 	m_seed = s;
-	delete simplex;
-	simplex = new Simplex(m_seed); // this needs to change
+	simplex.setSeed(seed);
 }
 
 void RidgedMulti::setScale(float s)

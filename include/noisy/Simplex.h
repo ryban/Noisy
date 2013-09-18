@@ -13,6 +13,8 @@ class Simplex : public Module
 		~Simplex();
 		virtual float getValue(float x, float y);
         virtual float getValue(float x, float y, float z);
+
+        void setSeed(int s);
 	private:
 		int m_seed;
 		void initPerm();

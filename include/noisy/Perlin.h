@@ -12,7 +12,7 @@ namespace noisy
 class Perlin : public Module
 {
     protected:
-        Simplex *simplex;
+        Simplex simplex;
 
         int m_seed;
         int m_octaves;
@@ -22,7 +22,6 @@ class Perlin : public Module
     public:
         Perlin(int s);
         Perlin(int seed, int oct, float scale, float pers, float gain);
-        ~Perlin();
 
         virtual float getValue(float x, float y);
         virtual float getValue(float x, float y, float z);
