@@ -20,17 +20,39 @@ void Simplex::initPerm()
 {
 	RNG rng;
 	rng.setSeed(m_seed);
-	for(int i = 0; i < 512; i++)
-		perm[i] = rng.getInt(0, 256);
+    // each element from 0-255 inside the permutations, no duplicates
+    for(int i = 0; i < 256; i++)
+        perm[i] = i;
+    // shuffle the array
+    for(int i = 255; i > 0; i--)
+    {
+        int j = rng.getInt(0, i+1); // i+1 since the rng.getInt is not inclusive
+        int hold = perm[i];
+        perm[i] = perm[j];
+        perm[j] = hold;
+    }
+
+    // copy the array to the top half
+    // uses more memory but makes things easier
+	for(int i = 256; i < 512; i++)
+		perm[i] = perm[i&255];
 }
 
-/* Everything below here sourced from Stefan Gustavson
-	http://webstaff.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf
-
+/*  
+    Everything below here sourced from Stefan Gustavson
+    http://webstaff.itn.liu.se/~stegu/simplexnoise/SimplexNoise.java
 */
+const float F2 = 0.5*(sqrt(3.0)-1.0);
+const float G2 = (3.0-sqrt(3.0))/6.0;
+const float F3 = 1.0/3.0;
+const float G3 = 1.0/6.0;
+// These are for 4D noise
+//const float F4 = (sqrt(5.0)-1.0)/4.0;
+//const float G4 = (5.0-sqrt(5.0))/20.0;
+
 int fastfloor(float x)
 {
-	return x>0 ? (int)x : (int)x-1;
+	return x>0 ? int(x) : int(x-1);
 }
 float dot(const int g[], float x, float y, float z)
 {
@@ -38,7 +60,7 @@ float dot(const int g[], float x, float y, float z)
 }
 float dot(const int g[], float x, float y)
 {
-return g[0]*x + g[1]*y;
+    return g[0]*x + g[1]*y;
 }
 float mix(float a, float b, float t)
 {
@@ -56,14 +78,15 @@ const int grad3[][3] = {{1,1,0},{-1,1,0},{1,-1,0},{-1,-1,0},
 // 3D
 float Simplex::getValue(float x, float y, float z)
 {
+    
 	float n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
-    float F3 = 1.f/3.f;
+    //float F3 = 1.f/3.f;
     float s = (x+y+z)*F3; // Very nice and simple skew factor for 3D
     int i = fastfloor(x+s);
     int j = fastfloor(y+s);
     int k = fastfloor(z+s);
-    float G3 = 1.f/6.f; // Very nice and simple unskew factor, too
+    //float G3 = 1.f/6.f; // Very nice and simple unskew factor, too
     float t = (i+j+k)*G3; 
     float X0 = i-t; // Unskew the cell origin back to (x,y,z) space
     float Y0 = j-t;
@@ -159,16 +182,17 @@ float Simplex::getValue(float x, float y, float z)
     // The result is scaled to stay just inside [-1,1]
     return 32.f*(n0 + n1 + n2 + n3);
 }
+
 // 2D
 float Simplex::getValue(float x, float y)
 {
 	float n0, n1, n2; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
-    float F2 = 0.5f*(sqrt(3.f)-1.f);
+    //float F2 = 0.5f*(sqrt(3.f)-1.f);
     float s = (x+y)*F2; // Hairy factor for 2D
     int i = fastfloor(x+s);
     int j = fastfloor(y+s);
-    float G2 = (3.f-sqrt(3.f))/6.f;
+    //float G2 = (3.f-sqrt(3.f))/6.f;
     float t = (i+j)*G2;
     float X0 = i-t; // Unskew the cell origin back to (x,y) space
     float Y0 = j-t;
