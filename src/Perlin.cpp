@@ -6,25 +6,23 @@
 namespace noisy
 {
 Perlin::Perlin(int seed)
+: simplex(seed)
 {
     m_seed = seed;
     m_octaves = 1;
     m_scale = 1.0;
     m_persitence = 0.5;
     m_gain = 2.0;
-
-    simplex.setSeed(seed);
 }
 
 Perlin::Perlin(int seed, int oct, float scale, float pers, float gain)
+: simplex(seed)
 {
     m_seed = seed;
     m_octaves = oct;
     m_scale = scale;
     m_persitence = pers;
     m_gain = gain;
-
-    simplex.setSeed(seed);
 }
 
 void Perlin::setSeed(int s)
