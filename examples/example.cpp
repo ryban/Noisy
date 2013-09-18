@@ -159,7 +159,7 @@ int main()
     bmp.saveToFile("ridge.png");
     std::cout << "Ridged saved\n";
 
-    noisy::Perlin perlin(time(0), 24, 0.01, 0.5, 2.5);
+    noisy::Perlin perlin(time(0), 16, 0.01, 0.5, 2.5);
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
@@ -196,4 +196,42 @@ int main()
     }
     bmp.saveToFile("simplex.png");
     std::cout << "Simplex saved\n";
+
+    noisy::Billow billow(time(0), 16, 0.007, 0.5, 2.5);
+    for(int x = 0; x < imgSize; x++)
+    {
+        for(int y = 0; y < imgSize; y++)
+        {
+            Pixel p;
+            float n = billow.getValue(float(x), float(y));
+            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::clamp(n, 0.0, 1.0);
+            int grey = floor(255 * n);
+            p.r = grey;
+            p.g = grey;
+            p.b = grey;
+            bmp.setPixel(x, y, p);
+        }
+    }
+    bmp.saveToFile("billow.png");
+    std::cout << "Billow saved\n";
+
+    noisy::Voronoi voronoi(time(0), 0.05, 1.0);
+    for(int x = 0; x < imgSize; x++)
+    {
+        for(int y = 0; y < imgSize; y++)
+        {
+            Pixel p;
+            float n = voronoi.getValue(float(x), float(y));
+            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::clamp(n, 0.0, 1.0);
+            int grey = floor(255 * n);
+            p.r = grey;
+            p.g = grey;
+            p.b = grey;
+            bmp.setPixel(x, y, p);
+        }
+    }
+    bmp.saveToFile("voronoi.png");
+    std::cout << "Voronoi saved\n";
 }
