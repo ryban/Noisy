@@ -62,9 +62,14 @@ namespace noisy
         else if(n < m_threshold - m_falloff)
             return m_lowSource->getValue(x, y);
         else
-            return utils::lerp(m_highSource->getValue(x, y), 
-                               m_lowSource->getValue(x, y),
-                               0.5);
+        {
+            float upper = m_threshold + m_falloff;
+            float lower = m_threshold - m_falloff;
+            float blend = utils::blend_quintic((n-lower)/(upper-lower));
+            return utils::lerp(m_lowSource->getValue(x, y),
+                               m_highSource->getValue(x, y),
+                               blend);
+        }
     }
     // gets the value at the position based on the source
     // blend if in falloff area
