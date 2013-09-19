@@ -62,7 +62,7 @@ float Billow::getValue(float x, float y)
         f *= m_gain;
         amp *= m_persistence;
     }
-    return n + 0.5f;
+    return n;
 }
 float Billow::getValue(float x, float y, float z)
 {
@@ -83,7 +83,7 @@ float Billow::getValue(float x, float y, float z)
         f *= m_gain;
         amp *= m_persistence;
     }
-    return n + 0.5f;
+    return n;
 }
 
 
