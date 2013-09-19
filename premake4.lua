@@ -20,3 +20,13 @@ solution "Noise Solution"
         targetname "example1"
         targetdir "examples"
 
+    project "SelectExample"
+        kind "ConsoleApp"
+        language "C++"
+        files {"examples/select.cpp"}
+        includedirs {"include"}
+        links {"noisy", "png"}
+        libdirs "lib"
+        location "build"
+        targetname "select"
+        targetdir "examples"
