@@ -1,4 +1,5 @@
 #include "noisy/Billow.h"
+#include "noisy/Utils.h"
 #include <cmath>
 
 namespace noisy
@@ -11,8 +12,9 @@ Billow::Billow(int seed)
     m_scale = 1.0;
     m_persistence = 0.5;
     m_gain = 2.0;
+    m_autoBound = true;
 }
-Billow::Billow(int seed, int oct, float scale, float pers, float gain)
+Billow::Billow(int seed, int oct, float scale, float pers, float gain, bool autoBound)
 : simplex(seed)
 {
     m_seed = seed;
@@ -20,6 +22,8 @@ Billow::Billow(int seed, int oct, float scale, float pers, float gain)
     m_scale = scale;
     m_persistence = pers;
     m_gain = gain;
+    m_autoBound = true;
+    calcMaxValue();
 }
 
 void Billow::setSeed(int s)
@@ -30,6 +34,7 @@ void Billow::setSeed(int s)
 void Billow::setOctaves(int o)
 {
     m_octaves = o;
+    calcMaxValue();
 }
 void Billow::setScale(float s)
 {
@@ -38,10 +43,28 @@ void Billow::setScale(float s)
 void Billow::setPersitence(float p)
 {
     m_persistence = p;
+    calcMaxValue();
 }
 void Billow::setGain(float g)
 {
     m_gain = g;
+}
+
+void Billow::setAutoBound(bool b)
+{
+    m_autoBound = b;
+}
+
+void Billow::calcMaxValue()
+{
+    float a = 1.0;
+    float n = 0.0;
+    for(int i = 0; i < m_octaves; i++)
+    {
+        n += a;
+        a *= m_persistence;
+    }
+    m_maxVal = n;
 }
 
 float Billow::getValue(float x, float y)
@@ -62,7 +85,10 @@ float Billow::getValue(float x, float y)
         f *= m_gain;
         amp *= m_persistence;
     }
-    return n;
+    if(m_autoBound)
+        return utils::bound(n, -1.0, 1.0, -m_maxVal, m_maxVal);
+    else
+        return n;
 }
 float Billow::getValue(float x, float y, float z)
 {
@@ -83,7 +109,10 @@ float Billow::getValue(float x, float y, float z)
         f *= m_gain;
         amp *= m_persistence;
     }
-    return n;
+    if(m_autoBound)
+        return utils::bound(n, -1.0, 1.0, -m_maxVal, m_maxVal);
+    else
+        return n;
 }
 
 
