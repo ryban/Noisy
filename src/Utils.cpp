@@ -80,7 +80,7 @@ namespace utils
     // to low to high.
     float bound(float n, float low, float high, float oldLow, float oldHigh)
     {
-        n = (n+(oldHigh-oldLow))/(oldHigh+((oldHigh-oldLow)/2.f));
+        n = (n-oldLow)/(oldHigh-oldLow); // normalize the old value
         return (n*(high-low)) + low;
     }
 
