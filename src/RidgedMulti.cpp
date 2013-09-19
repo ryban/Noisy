@@ -39,7 +39,7 @@ RidgedMulti::~RidgedMulti()
 void RidgedMulti::setSeed(int s)
 {
 	m_seed = s;
-	simplex.setSeed(seed);
+	simplex.setSeed(s);
 }
 
 void RidgedMulti::setScale(float s)
@@ -94,7 +94,7 @@ float RidgedMulti::ridge(float n)
 float RidgedMulti::getValue(float x, float y)
 {
 	x *= m_scale; y *= m_scale;
-	float signal = ridge(simplex->getValue(x, y));
+	float signal = ridge(simplex.getValue(x, y));
 	float sum = signal;
 	float weight = 1.0;
 	for(int i = 1; weight > 0.001 && i < m_octaves-1; i++)
@@ -102,7 +102,7 @@ float RidgedMulti::getValue(float x, float y)
 		x *= m_lacunarity; y *= m_lacunarity;
 		weight = signal * m_gain;
 		weight = utils::clamp(weight, 0.0, 1.0);
-		signal = ridge(simplex->getValue(x, y));
+		signal = ridge(simplex.getValue(x, y));
 		signal *= weight;
 		sum += signal * m_frequencies[i];
 	}
@@ -111,7 +111,7 @@ float RidgedMulti::getValue(float x, float y)
 float RidgedMulti::getValue(float x, float y, float z)
 {
 	x *= m_scale; y *= m_scale; z *= m_scale;
-	float signal = ridge(simplex->getValue(x, y, z));
+	float signal = ridge(simplex.getValue(x, y, z));
 	float sum = signal;
 	float weight = 1.0;
 	for(int i = 1; weight > 0.001 && i < m_octaves-1; i++)
@@ -119,7 +119,7 @@ float RidgedMulti::getValue(float x, float y, float z)
 		x *= m_lacunarity; y *= m_lacunarity; z *= m_lacunarity;
 		weight = signal * m_gain;
 		weight = utils::clamp(weight, 0.0, 1.0);
-		signal = ridge(simplex->getValue(x, y, z));
+		signal = ridge(simplex.getValue(x, y, z));
 		signal *= weight;
 		sum += signal * m_frequencies[i];
 	}
