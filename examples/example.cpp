@@ -9,7 +9,7 @@
 
 #include "noisy/Noisy.h"
 
-struct Pixel 
+struct Pixel
 {
     uint8_t r, g, b;
 };
@@ -148,6 +148,7 @@ int main()
         {
             Pixel p;
             float n = ridge.getValue(float(x), float(y));
+            n = noisy::utils::bound(n, 0.0, 1.0, -0.25, 2.25);
             n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;
@@ -166,8 +167,9 @@ int main()
         {
             Pixel p;
             float n = perlin.getValue(float(x), float(y));
-            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::bound(n, 0.0, 1.0, -1.2, 1.2);
             // octave noise does not remain within the [-1, 1] range, so clamp the ends
+            // the bound() above gets a lot of the cut off though
             n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;
@@ -186,7 +188,8 @@ int main()
         {
             Pixel p;
             float n = simplex.getValue(float(x)*0.02, float(y)*0.02);
-            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::bound(n, 0.0, 1.0, -1.0, 1.0);
+            n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;
             p.g = grey;
@@ -204,7 +207,7 @@ int main()
         {
             Pixel p;
             float n = billow.getValue(float(x), float(y));
-            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::bound(n, 0.0, 1.0, -2.0, 2.0);
             n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;
@@ -223,7 +226,7 @@ int main()
         {
             Pixel p;
             float n = voronoi.getValue(float(x), float(y));
-            n = noisy::utils::bound(0.0, 1.0, n);
+            n = noisy::utils::bound(n, 0.0, 1.0);
             n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;

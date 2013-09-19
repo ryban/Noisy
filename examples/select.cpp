@@ -140,7 +140,7 @@ int main()
 {
     const int imgSize = 512;
     Bitmap bmp(imgSize, imgSize);
-    
+
     float threshold = 0.0;
     float falloff = 0.15;
 
@@ -148,11 +148,11 @@ int main()
     noisy::Cache controlCache(&control);
 
     noisy::Perlin perl(time(0), 16, 0.025, 0.5, 2.0);
-    noisy::Bound perlBound(&perl, 0.0, 1.0);
+    noisy::Bound perlBound(&perl, 0.0, 1.0, -1.2, 1.2);
     noisy::Clamp perlClamp(&perlBound, 0.0, 1.0);
 
     noisy::Billow billow(time(0), 16, 0.01, 0.5, 2.0);
-    noisy::Bound billBound(&billow, 0.0, 1.0);
+    noisy::Bound billBound(&billow, 0.0, 1.0, -2.0, 2.0);
     noisy::Clamp billClamp(&billBound, 0.0, 1.0);
 
     noisy::Select select(&controlCache, &billClamp, &perlClamp, threshold, falloff);
