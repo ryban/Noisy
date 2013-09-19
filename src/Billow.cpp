@@ -13,6 +13,7 @@ Billow::Billow(int seed)
     m_persistence = 0.5;
     m_gain = 2.0;
     m_autoBound = true;
+    m_maxVal = 1.0;
 }
 Billow::Billow(int seed, int oct, float scale, float pers, float gain, bool autoBound)
 : simplex(seed)
