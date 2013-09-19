@@ -11,7 +11,7 @@ Perlin::Perlin(int seed)
     m_seed = seed;
     m_octaves = 1;
     m_scale = 1.0;
-    m_persitence = 0.5;
+    m_persistence = 0.5;
     m_gain = 2.0;
     m_maxVal = 1.0;
     m_autoBound = true;
@@ -23,7 +23,7 @@ Perlin::Perlin(int seed, int oct, float scale, float pers, float gain, bool auto
     m_seed = seed;
     m_octaves = oct;
     m_scale = scale;
-    m_persitence = pers;
+    m_persistence = pers;
     m_gain = gain;
     m_autoBound = autoBound;
     calcMaxValue();
@@ -45,7 +45,7 @@ void Perlin::setScale(float s)
 }
 void Perlin::setPersitence(float p)
 {
-    m_persitence = p;
+    m_persistence = p;
     calcMaxValue();
 }
 
@@ -66,7 +66,7 @@ void Perlin::calcMaxValue()
     for(int i = 0; i < m_octaves; i++)
     {
         n += a;
-        a *= m_persitence;
+        a *= m_persistence;
     }
     m_maxVal = n;
 }
@@ -84,7 +84,7 @@ float Perlin::getValue(float x, float y)
     {
         n += amp * simplex.getValue(x*f, y*f);
         f *= m_gain;
-        amp *= m_persitence;
+        amp *= m_persistence;
     }
     if(m_autoBound)
         return utils::bound(n, -1.0, 1.0, -m_maxVal, m_maxVal);
@@ -106,7 +106,7 @@ float Perlin::getValue(float x, float y, float z)
     {
         n += amp * simplex.getValue(x*f, y*f, z*f);
         f *= m_gain;
-        amp *= m_persitence;
+        amp *= m_persistence;
     }
     if(m_autoBound)
         return utils::bound(n, -1.0, 1.0, -m_maxVal, m_maxVal);

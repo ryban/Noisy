@@ -17,7 +17,7 @@ class Perlin : public Module
         int m_seed;
         int m_octaves;
         float m_scale;
-        float m_persitence;
+        float m_persistence;
         float m_gain;
 
         // used to automatically bound the end result to [-1.0, 1.0]
