@@ -10,7 +10,6 @@ Add::Add()
 
 Add::~Add()
 {
-	m_sources.clear();
 }
 
 void Add::addSource(Module *source)

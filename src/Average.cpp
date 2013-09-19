@@ -9,7 +9,6 @@ Average::Average()
 
 Average::~Average()
 {
-	m_sources.clear();
 }
 
 void Average::addSource(Module *source)

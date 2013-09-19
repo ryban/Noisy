@@ -26,9 +26,6 @@ namespace noisy
 
     Select::~Select()
     {
-        delete m_control;
-        delete m_lowSource;
-        delete m_highSource;
     }
 
     void Select::setControlSource(Module *c)

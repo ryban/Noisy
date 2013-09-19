@@ -9,7 +9,6 @@ Multiply::Multiply()
 
 Multiply::~Multiply()
 {
-	m_sources.clear();
 }
 
 void Multiply::addSource(Module *source)

@@ -10,7 +10,6 @@ Cache::Cache(Module *source)
 
 Cache::~Cache()
 {
-    delete m_source;
 }
 // checks if xy are the same as teh stored values and returns the stored one if they are
 // other wise get a new one
