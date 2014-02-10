@@ -16,6 +16,8 @@
 #include "noisy/Clamp.h"
 #include "noisy/Cache.h"
 #include "noisy/Constant.h"
+#include "noisy/Displace.h"
+#include "noisy/Circle.h"
 #include "noisy/Utils.h"
 
 #endif
