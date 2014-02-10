@@ -6,7 +6,7 @@ namespace noisy
 
 Simplex::Simplex(int seed)
 {
-	setSeed(seed);
+    setSeed(seed);
 }
 
 
@@ -14,7 +14,7 @@ Simplex::~Simplex()
 {
 }
 
-void setSeed(int s)
+void Simplex::setSeed(int s)
 {
     m_seed = s;
     initPerm();
@@ -23,8 +23,8 @@ void setSeed(int s)
 // initialize the permuations to generate 
 void Simplex::initPerm()
 {
-	RNG rng;
-	rng.setSeed(m_seed);
+    RNG rng;
+    rng.setSeed(m_seed);
     // each element from 0-255 inside the permutations, no duplicates
     for(int i = 0; i < 256; i++)
         perm[i] = i;
@@ -39,8 +39,8 @@ void Simplex::initPerm()
 
     // copy the array to the top half
     // uses more memory but makes things easier
-	for(int i = 256; i < 512; i++)
-		perm[i] = perm[i&255];
+    for(int i = 256; i < 512; i++)
+        perm[i] = perm[i&255];
 }
 
 /*  
@@ -57,11 +57,11 @@ const float G3 = 1.0/6.0;
 
 int fastfloor(float x)
 {
-	return x>0 ? int(x) : int(x-1);
+    return x>0 ? int(x) : int(x-1);
 }
 float dot(const int g[], float x, float y, float z)
 {
-	return g[0]*x + g[1]*y + g[2]*z;
+    return g[0]*x + g[1]*y + g[2]*z;
 }
 float dot(const int g[], float x, float y)
 {
@@ -69,11 +69,11 @@ float dot(const int g[], float x, float y)
 }
 float mix(float a, float b, float t)
 {
-	return (1-t)*a + t*b;
+    return (1-t)*a + t*b;
 }
 float fade(float t)
 {
-	return t*t*t*(t*(t*6-15)+10);
+    return t*t*t*(t*(t*6-15)+10);
 }
 
 const int grad3[][3] = {{1,1,0},{-1,1,0},{1,-1,0},{-1,-1,0},
@@ -84,7 +84,7 @@ const int grad3[][3] = {{1,1,0},{-1,1,0},{1,-1,0},{-1,-1,0},
 float Simplex::getValue(float x, float y, float z)
 {
     
-	float n0, n1, n2, n3; // Noise contributions from the four corners
+    float n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
     //float F3 = 1.f/3.f;
     float s = (x+y+z)*F3; // Very nice and simple skew factor for 3D
@@ -104,40 +104,40 @@ float Simplex::getValue(float x, float y, float z)
     int i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
     int i2, j2, k2; // Offsets for third corner of simplex in (i,j,k) coords
     if(x0>=y0)
-	{
-		if(y0>=z0)
-		{
-			i1=1; j1=0; k1=0; i2=1; j2=1; k2=0;
-		} // X Y Z order
-		else if(x0>=z0)
-		{
-			i1=1; j1=0; k1=0; i2=1; j2=0; k2=1;
-		} // X Z Y order
-		else
-		{
-			i1=0; j1=0; k1=1; i2=1; j2=0; k2=1;
-		} // Z X Y order
+    {
+        if(y0>=z0)
+        {
+            i1=1; j1=0; k1=0; i2=1; j2=1; k2=0;
+        } // X Y Z order
+        else if(x0>=z0)
+        {
+            i1=1; j1=0; k1=0; i2=1; j2=0; k2=1;
+        } // X Z Y order
+        else
+        {
+            i1=0; j1=0; k1=1; i2=1; j2=0; k2=1;
+        } // Z X Y order
     }
     else
-	{ // x0<y0
-		if(y0<z0)
-		{
-			i1=0; j1=0; k1=1; i2=0; j2=1; k2=1;
-		} // Z Y X order
-		else if(x0<z0)
-		{
-			i1=0; j1=1; k1=0; i2=0; j2=1; k2=1;
-		} // Y Z X order
-		else
-		{
-			i1=0; j1=1; k1=0; i2=1; j2=1; k2=0;
-		} // Y X Z order
+    { // x0<y0
+        if(y0<z0)
+        {
+            i1=0; j1=0; k1=1; i2=0; j2=1; k2=1;
+        } // Z Y X order
+        else if(x0<z0)
+        {
+            i1=0; j1=1; k1=0; i2=0; j2=1; k2=1;
+        } // Y Z X order
+        else
+        {
+            i1=0; j1=1; k1=0; i2=1; j2=1; k2=0;
+        } // Y X Z order
     }
     // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z),
     // a step of (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and
     // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
     // c = 1/6.    float x1 = x0 - i1 + G3; // Offsets for second corner in (x,y,z) coords
-	float x1 = x0 - i1 + G3; // Offsets for second corner in (x,y,z) coords
+    float x1 = x0 - i1 + G3; // Offsets for second corner in (x,y,z) coords
     float y1 = y0 - j1 + G3;
     float z1 = z0 - k1 + G3;
     float x2 = x0 - i2 + 2.f*G3; // Offsets for third corner in (x,y,z) coords
@@ -158,28 +158,28 @@ float Simplex::getValue(float x, float y, float z)
     float t0 = 0.6f - x0*x0 - y0*y0 - z0*z0;
     if(t0<0) n0 = 0.f;
     else
-	{
+    {
       t0 *= t0;
       n0 = t0 * t0 * dot(grad3[gi0], x0, y0, z0);
     }
     float t1 = 0.6f - x1*x1 - y1*y1 - z1*z1;
     if(t1<0) n1 = 0.f;
     else
-	{
+    {
       t1 *= t1;
       n1 = t1 * t1 * dot(grad3[gi1], x1, y1, z1);
     }
     float t2 = 0.6f - x2*x2 - y2*y2 - z2*z2;
     if(t2<0) n2 = 0.f;
     else
-	{
+    {
       t2 *= t2;
       n2 = t2 * t2 * dot(grad3[gi2], x2, y2, z2);
     }
     float t3 = 0.6f - x3*x3 - y3*y3 - z3*z3;
     if(t3<0) n3 = 0.f;
     else
-	{
+    {
       t3 *= t3;
       n3 = t3 * t3 * dot(grad3[gi3], x3, y3, z3);
     }
@@ -191,7 +191,7 @@ float Simplex::getValue(float x, float y, float z)
 // 2D
 float Simplex::getValue(float x, float y)
 {
-	float n0, n1, n2; // Noise contributions from the three corners
+    float n0, n1, n2; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
     //float F2 = 0.5f*(sqrt(3.f)-1.f);
     float s = (x+y)*F2; // Hairy factor for 2D

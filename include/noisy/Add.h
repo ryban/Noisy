@@ -8,16 +8,16 @@ namespace noisy
 
 class Add : public Module
 {
-	public:
-		Add();
-		~Add();
+    public:
+        Add();
+        ~Add();
 
-		void addSource(Module *source);
+        void addSource(Module *source);
 
-		virtual float getValue(float x, float y);
+        virtual float getValue(float x, float y);
         virtual float getValue(float x, float y, float z);
-	private:
-		std::vector<Module *> m_sources;
+    private:
+        std::vector<Module *> m_sources;
 };
 
 }; // end namespace Noise

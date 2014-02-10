@@ -39,16 +39,16 @@ float Voronoi::getValue(float x, float y)
     int X = (x > 0.0? (int)x: (int)x - 1);
     int Y = (y > 0.0? (int)y: (int)y - 1);
 
-    float minDist = 2147483647.0;
+    float minDist = 2147483647.0; // 2^31
     float xCandidate = 0;
     float yCandidate = 0;
 
     // Inside each unit cube, there is a seed point at a random position.  Go
     // through each of the nearby cubes until we find a cube with a seed point
     // that is closest to the specified position.
-    for (int curY = Y - 2; curY <= Y + 2; curY++)
+    for(int curY = Y - 2; curY <= Y + 2; curY++)
     {
-        for (int curX = X - 2; curX <= X + 2; curX++)
+        for(int curX = X - 2; curX <= X + 2; curX++)
         {
 
             // Calculate the position and distance to the seed point inside of
@@ -60,7 +60,7 @@ float Voronoi::getValue(float x, float y)
             float yDist = yPos - y;
             float dist = xDist * xDist + yDist * yDist;
 
-            if (dist < minDist)
+            if(dist < minDist)
             {
                 // This seed point is closer to any others found so far, so record
                 // this seed point.
@@ -70,8 +70,7 @@ float Voronoi::getValue(float x, float y)
             }
         }
     }
-    return (m_displacement * simplex.getValue((int)(floor (xCandidate)),
-                                                      (int)(floor (yCandidate))));
+    return m_displacement * simplex.getValue(floor(xCandidate), floor(yCandidate));
 }
 
 float Voronoi::getValue(float x, float y, float z)
@@ -123,9 +122,9 @@ float Voronoi::getValue(float x, float y, float z)
         }
     }
 
-    return (m_displacement * simplex.getValue((int)(floor (xCandidate)),
-                                              (int)(floor (yCandidate)),
-                                              (int)(floor (zCandidate))));
+    return (m_displacement * simplex.getValue(floor(xCandidate),
+                                              floor(yCandidate),
+                                              floor(zCandidate)));
 }
 
 } // namespace noisy

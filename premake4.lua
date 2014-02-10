@@ -1,5 +1,5 @@
 solution "Noise Solution"
-    configurations { "Release"}
+    configurations {"Release"}
     project "Noise"
         kind "StaticLib"
         language "C++"
@@ -17,8 +17,8 @@ solution "Noise Solution"
         links {"noisy", "png"}
         libdirs "lib"
         location "build"
-        targetname "example1"
-        targetdir "examples"
+        targetname "example"
+        targetdir "bin"
 
     project "SelectExample"
         kind "ConsoleApp"
@@ -29,4 +29,4 @@ solution "Noise Solution"
         libdirs "lib"
         location "build"
         targetname "select"
-        targetdir "examples"
+        targetdir "bin"

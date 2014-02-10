@@ -144,18 +144,16 @@ int main()
     float threshold = 0.0;
     float falloff = 0.15;
 
-    noisy::Perlin control(time(0), 16, 0.0025, 0.5, 2.5);
+    noisy::FBM control(time(0), 16, 0.0025, 0.5, 2.5);
     noisy::Cache controlCache(&control);
 
-    noisy::Perlin perl(time(0), 16, 0.025, 0.5, 2.0);
-    noisy::Bound perlBound(&perl, 0.0, 1.0, -1.2, 1.2);
-    noisy::Clamp perlClamp(&perlBound, 0.0, 1.0);
+    noisy::FBM fbm(time(0), 16, 0.025, 0.5, 2.0);
+    noisy::Bound perlBound(&fbm, 0.0, 1.0);
 
     noisy::Billow billow(time(0), 16, 0.01, 0.5, 2.0);
-    noisy::Bound billBound(&billow, 0.0, 1.0, -2.0, 2.0);
-    noisy::Clamp billClamp(&billBound, 0.0, 1.0);
+    noisy::Bound billBound(&billow, 0.0, 1.0);
 
-    noisy::Select select(&controlCache, &billClamp, &perlClamp, threshold, falloff);
+    noisy::Select select(&controlCache, &billBound, &perlBound, threshold, falloff);
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)

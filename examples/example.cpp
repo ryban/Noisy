@@ -148,7 +148,7 @@ int main()
         {
             Pixel p;
             float n = ridge.getValue(float(x), float(y));
-            // these is approximate bounds that makes for a good output
+            // these are approximate bounds that makes for a good output
             n = noisy::utils::bound(n, 0.0, 1.0, -0.25, 2.25);
             n = noisy::utils::clamp(n, 0.0, 1.0);
             int grey = floor(255 * n);
@@ -161,13 +161,13 @@ int main()
     bmp.saveToFile("ridge.png");
     std::cout << "Ridged saved\n";
 
-    noisy::Perlin perlin(time(0), 16, 0.01, 0.5, 2.5);
+    noisy::FBM fbm(time(0), 16, 0.01, 0.5, 2.5);
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
         {
             Pixel p;
-            float n = perlin.getValue(float(x), float(y));
+            float n = fbm.getValue(float(x), float(y));
             n = noisy::utils::bound(n, 0.0, 1.0);
             int grey = floor(255 * n);
             p.r = grey;
@@ -176,8 +176,8 @@ int main()
             bmp.setPixel(x, y, p);
         }
     }
-    bmp.saveToFile("perlin.png");
-    std::cout << "Perlin saved\n";
+    bmp.saveToFile("fbm.png");
+    std::cout << "FBM saved\n";
 
     noisy::Simplex simplex(time(0));
     for(int x = 0; x < imgSize; x++)
