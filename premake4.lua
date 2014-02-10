@@ -30,3 +30,14 @@ solution "Noise Solution"
         location "build"
         targetname "select"
         targetdir "bin"
+
+    project "CircleExample"
+        kind "ConsoleApp"
+        language "C++"
+        files {"examples/circle.cpp"}
+        includedirs {"include"}
+        links {"noisy", "png"}
+        libdirs "lib"
+        location "build"
+        targetname "circle"
+        targetdir "bin"
