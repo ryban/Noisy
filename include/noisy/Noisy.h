@@ -4,7 +4,7 @@
 // include this file to include all of the noise library
 
 #include "noisy/Module.h"
-#include "noisy/Perlin.h"
+#include "noisy/FBM.h"
 #include "noisy/RidgedMulti.h"
 #include "noisy/Billow.h"
 #include "noisy/Voronoi.h"

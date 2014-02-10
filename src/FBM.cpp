@@ -1,11 +1,11 @@
-#include "noisy/Perlin.h"
+#include "noisy/FBM.h"
 #include "noisy/Utils.h"
 
 #include <cmath>
 
 namespace noisy
 {
-Perlin::Perlin(int seed)
+FBM::FBM(int seed)
 : simplex(seed)
 {
     m_seed = seed;
@@ -17,7 +17,7 @@ Perlin::Perlin(int seed)
     m_autoBound = true;
 }
 
-Perlin::Perlin(int seed, int oct, float scale, float pers, float gain, bool autoBound)
+FBM::FBM(int seed, int oct, float scale, float pers, float gain, bool autoBound)
 : simplex(seed)
 {
     m_seed = seed;
@@ -29,37 +29,37 @@ Perlin::Perlin(int seed, int oct, float scale, float pers, float gain, bool auto
     calcMaxValue();
 }
 
-void Perlin::setSeed(int s)
+void FBM::setSeed(int s)
 {
     m_seed = s;
     simplex.setSeed(s);
 }
-void Perlin::setOctaves(int o)
+void FBM::setOctaves(int o)
 {
     m_octaves = o;
     calcMaxValue();
 }
-void Perlin::setScale(float s)
+void FBM::setScale(float s)
 {
     m_scale = s;
 }
-void Perlin::setPersitence(float p)
+void FBM::setPersitence(float p)
 {
     m_persistence = p;
     calcMaxValue();
 }
 
-void Perlin::setGain(float g)
+void FBM::setGain(float g)
 {
     m_gain = g;
 }
 
-void Perlin::setAutoBound(bool b)
+void FBM::setAutoBound(bool b)
 {
     m_autoBound = b;
 }
 
-void Perlin::calcMaxValue()
+void FBM::calcMaxValue()
 {
     float a = 1.0;
     float n = 0.0;
@@ -71,7 +71,7 @@ void Perlin::calcMaxValue()
     m_maxVal = n;
 }
 
-float Perlin::getValue(float x, float y)
+float FBM::getValue(float x, float y)
 {
     x *= m_scale;
     y *= m_scale;
@@ -92,7 +92,7 @@ float Perlin::getValue(float x, float y)
         return n;
 }
 
-float Perlin::getValue(float x, float y, float z)
+float FBM::getValue(float x, float y, float z)
 {
     x *= m_scale;
     y *= m_scale;

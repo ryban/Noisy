@@ -4,12 +4,12 @@
 #include "noisy/Module.h"
 #include "noisy/Simplex.h"
 
-// the basic perlin noise module
+// the basic Fractal Browning Motion noise module
 
 namespace noisy
 {
 
-class Perlin : public Module
+class FBM : public Module
 {
     protected:
         Simplex simplex;
@@ -26,8 +26,8 @@ class Perlin : public Module
 
         void calcMaxValue();
     public:
-        Perlin(int s);
-        Perlin(int seed, int oct, float scale, float pers, float gain, bool autoBound=true);
+        FBM(int s);
+        FBM(int seed, int oct, float scale, float pers, float gain, bool autoBound=true);
 
         virtual float getValue(float x, float y);
         virtual float getValue(float x, float y, float z);
