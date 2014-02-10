@@ -12,9 +12,10 @@ namespace noisy
 
         m_threshold = 0.0;
         m_falloff = 0.0;
+        m_type = Keep;
     }
 
-    Select::Select(Module *c, Module *low, Module *high, float t, float f)
+    Select::Select(Module *c, Module *low, Module *high, float t, float f, ControlType type)
     {
         m_control = c;
         m_lowSource = low;
@@ -22,6 +23,7 @@ namespace noisy
 
         m_threshold = t;
         m_falloff = f;
+        m_type = type;
     }
 
     Select::~Select()
@@ -52,6 +54,11 @@ namespace noisy
     {
         m_falloff = f;
     }
+
+    void Select::setControlType(ControlType type)
+    {
+        m_type = type;
+    }
     // gets the value at the position based on the source
     // blend if in falloff area
     float Select::getValue(float x, float y)
@@ -75,8 +82,14 @@ namespace noisy
     // blend if in falloff area
     float Select::getValue(float x, float y, float z)
     {
-        // always use 2d noise for the control
-        float n = m_control->getValue(x, z);
+        float n;
+        switch(m_type)
+        {
+            case Keep: n = m_control->getValue(x, y, z); break;
+            case XY2D: n = m_control->getValue(x, y);    break;
+            case XZ2D: n = m_control->getValue(x, z);    break;
+            default:   n = m_control->getValue(x, y, z); break; // default, Keep
+        }
         if(n > m_threshold + m_falloff)
             return m_highSource->getValue(x, y, z);
         else if(n < m_threshold - m_falloff)
