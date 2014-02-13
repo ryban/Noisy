@@ -2,6 +2,7 @@
 #define NOISY_BOUND_H
 
 #include "noisy/Module.h"
+#include <memory>
 
 namespace noisy
 {
@@ -14,18 +15,19 @@ private:
     float m_oldLow;
     float m_oldHigh;
 
-    Module *m_source;
+    pModule m_source;
 public:
-    Bound(Module *source, float low, float high, float oldLow=-1.0, float oldHigh=1.0);
-    ~Bound();
+    Bound(pModule source, float low, float high, float oldLow=-1.0, float oldHigh=1.0);
 
-    void setSource(Module *source);
+    void setSource(pModule source);
     void setBounds(float low, float high);
     void setOldBounds(float low, float high);
 
     virtual float getValue(float x, float y);
     virtual float getValue(float x, float y, float z);
 };
+
+typedef std::shared_ptr<Bound> pBound;
 
 } // namespace noisy
 #endif

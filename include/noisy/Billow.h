@@ -3,6 +3,7 @@
 
 #include "noisy/Module.h"
 #include "noisy/Simplex.h"
+#include <memory>
 
 namespace noisy
 {
@@ -36,6 +37,8 @@ public:
     void setGain(float g);
     void setAutoBound(bool b);
 };
+
+typedef std::shared_ptr<Billow> pBillow;
 
 } // end noisy
 #endif

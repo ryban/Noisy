@@ -2,6 +2,7 @@
 #define NOISY_CLAMP_H
 
 #include "noisy/Module.h"
+#include <memory>
 
 namespace noisy
 {
@@ -12,17 +13,18 @@ private:
     float m_low;
     float m_high;
 
-    Module *m_source;
+    pModule m_source;
 public:
-    Clamp(Module *source, float low, float high);
-    ~Clamp();
+    Clamp(pModule source, float low, float high);
 
-    void setSource(Module *source);
+    void setSource(pModule source);
     void setBounds(float low, float high);
 
     virtual float getValue(float x, float y);
     virtual float getValue(float x, float y, float z);
 };
+
+typedef std::shared_ptr<Clamp> pClamp;
 
 } // namespace noisy
 #endif

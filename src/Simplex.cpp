@@ -9,11 +9,6 @@ Simplex::Simplex(int seed)
     setSeed(seed);
 }
 
-
-Simplex::~Simplex()
-{
-}
-
 void Simplex::setSeed(int s)
 {
     m_seed = s;

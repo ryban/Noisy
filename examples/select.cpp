@@ -144,23 +144,23 @@ int main()
     float threshold = 0.0;
     float falloff = 0.15;
 
-    noisy::FBM control(time(0), 16, 0.0025, 0.5, 2.5);
-    noisy::Cache controlCache(&control);
+    noisy::pFBM control(new noisy::FBM(time(0), 16, 0.0025, 0.5, 2.5));
+    noisy::pCache controlCache(new noisy::Cache(control));
 
-    noisy::FBM fbm(time(0), 16, 0.025, 0.5, 2.0);
-    noisy::Bound perlBound(&fbm, 0.0, 1.0);
+    noisy::pFBM fbm(new noisy::FBM(time(0), 16, 0.025, 0.5, 2.0));
+    noisy::pBound perlBound(new noisy::Bound(fbm, 0.0, 1.0));
 
-    noisy::Billow billow(time(0), 16, 0.01, 0.5, 2.0);
-    noisy::Bound billBound(&billow, 0.0, 1.0);
+    noisy::pBillow billow(new noisy::Billow(time(0), 16, 0.01, 0.5, 2.0));
+    noisy::pBound billBound(new noisy::Bound(billow, 0.0, 1.0));
 
-    noisy::Select select(&controlCache, &billBound, &perlBound, threshold, falloff);
+    noisy::pSelect select(new noisy::Select(controlCache, billBound, perlBound, threshold, falloff));
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
         {
             Pixel p;
-            float n = select.getValue(float(x), float(y));
-            float c = controlCache.getValue(float(x), float(y));
+            float n = select->getValue(float(x), float(y));
+            float c = controlCache->getValue(float(x), float(y));
             int grey = floor(255 * n);
             if(c < threshold-falloff)
             {

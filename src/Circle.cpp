@@ -10,7 +10,7 @@ Circle::Circle()
     m_inside = m_outside = 0;
 }
 
-Circle::Circle(float radius, Module *inside, Module *outside)
+Circle::Circle(float radius, pModule inside, pModule outside)
 {
     m_radiusSq = radius*radius;
     m_inside = inside;
@@ -19,7 +19,7 @@ Circle::Circle(float radius, Module *inside, Module *outside)
     m_thresholdSq = m_radiusSq*0.05;
 }
 
-Circle::Circle(float radius, Module *inside, Module *outside, float threshold)
+Circle::Circle(float radius, pModule inside, pModule outside, float threshold)
 {
     m_radiusSq = radius*radius;
     m_inside = inside;
@@ -32,7 +32,7 @@ void Circle::setRadius(float r)
     m_radiusSq = r*r;
 }
 
-void Circle::setSources(Module *inside, Module *outside)
+void Circle::setSources(pModule inside, pModule outside)
 {
     m_inside = inside;
     m_outside = outside;

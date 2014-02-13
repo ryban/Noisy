@@ -7,13 +7,14 @@
 // allows for quick access of the same value multiple times in a row
 
 #include "noisy/Module.h"
+#include <memory>
 
 namespace noisy
 {
 class Cache : public Module
 {
     protected:
-        Module *m_source;
+        pModule m_source;
 
         bool m_stored_2d;
         float m_storedX_2d;
@@ -27,12 +28,13 @@ class Cache : public Module
         float m_storedValue_3d;
 
     public:
-        Cache(Module *source);
-        ~Cache();
+        Cache(pModule source);
 
         virtual float getValue(float x, float y);
         virtual float getValue(float x, float y, float z);
 };
+
+typedef std::shared_ptr<Cache> pCache;
 
 } // end namespace Noise
 

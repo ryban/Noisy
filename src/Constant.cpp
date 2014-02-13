@@ -8,10 +8,6 @@ Constant::Constant(float c)
     m_value = c;
 }
 
-Constant::~Constant()
-{
-}
-
 void Constant::setValue(float c)
 {
     m_value = c;

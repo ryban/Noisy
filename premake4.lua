@@ -5,6 +5,7 @@ solution "Noise Solution"
         language "C++"
         files {"src/*.cpp"}
         includedirs {"include"}
+        buildoptions { "-std=c++11" }
         location "build"
         targetdir "lib"
         targetname "noisy"

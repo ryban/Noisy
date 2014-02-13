@@ -15,7 +15,7 @@ namespace noisy
         m_type = Keep;
     }
 
-    Select::Select(Module *c, Module *low, Module *high, float t, float f, ControlType type)
+    Select::Select(pModule c, pModule low, pModule high, float t, float f, ControlType type)
     {
         m_control = c;
         m_lowSource = low;
@@ -26,21 +26,17 @@ namespace noisy
         m_type = type;
     }
 
-    Select::~Select()
-    {
-    }
-
-    void Select::setControlSource(Module *c)
+    void Select::setControlSource(pModule c)
     {
         m_control = c;
     }
 
-    void Select::setLowSource(Module *low)
+    void Select::setLowSource(pModule low)
     {
         m_lowSource = low;
     }
 
-    void Select::setHighSource(Module *high)
+    void Select::setHighSource(pModule high)
     {
         m_highSource = high;
     }

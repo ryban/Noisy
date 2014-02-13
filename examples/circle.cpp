@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <cmath>
+#include <memory>
 
 #include "noisy/Noisy.h"
 
@@ -141,25 +142,25 @@ int main()
     const int imgSize = 512;
     Bitmap bmp(imgSize, imgSize);
 
-    noisy::FBM fbm(time(0), 16, 0.025, 0.5, 2.0);
-    noisy::Bound fbmBound(&fbm, 0.0, 1.0);
+    noisy::pFBM fbm(new noisy::FBM(time(0), 16, 0.025, 0.5, 2.0));
+    noisy::pBound fbmBound(new noisy::Bound(fbm, 0.0, 1.0));
 
-    noisy::Constant in(1.0);
-    noisy::Constant out(0.0);
+    //noisy::pConstant in(new noisy::Constant(1.0));
+    noisy::pConstant out(new noisy::Constant(0.0));
 
-    noisy::Circle circle(imgSize/3, &in, &out);
-    noisy::Displace offset(&circle, -imgSize/2, -imgSize/2, 0.0); // centers coords on the origin
+    noisy::pCircle circle(new noisy::Circle(imgSize/3, fbmBound, out));
+    noisy::pDisplace offset(new noisy::Displace(circle, -imgSize/2, -imgSize/2, 0.0)); // centers coords on the origin
 
-    noisy::Multiply mult;
-    mult.addSource(&offset);
-    mult.addSource(&fbmBound);
+    // noisy::pMultiply mult;
+    // mult->addSource(offset);
+    // mult->addSource(fbmBound);
 
     for(int x = 0; x < imgSize; x++)
     {
         for(int y = 0; y < imgSize; y++)
         {
             Pixel p;
-            float n = mult.getValue(float(x), float(y));
+            float n = offset->getValue(float(x), float(y));
             int grey = floor(255 * n);
             p.r = grey;
             p.g = 0;

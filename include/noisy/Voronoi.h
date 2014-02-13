@@ -3,28 +3,31 @@
 
 #include "noisy/Module.h"
 #include "noisy/Simplex.h"
+#include <memory>
 
 namespace noisy
 {
 
 class Voronoi : public Module
 {
-private:
-    float m_seed;
-    float m_scale;
-    float m_displacement;
+    private:
+        float m_seed;
+        float m_scale;
+        float m_displacement;
 
-    Simplex simplex;
-public:
-    Voronoi(int seed);
-    Voronoi(int seed, float scale, float displacement);
+        Simplex simplex;
+    public:
+        Voronoi(int seed);
+        Voronoi(int seed, float scale, float displacement);
 
-    virtual float getValue(float x, float y);
-    virtual float getValue(float x, float y, float z);
-    void setSeed(int s);
-    void setScale(float s);
-    void setDisplacement(float d);
+        virtual float getValue(float x, float y);
+        virtual float getValue(float x, float y, float z);
+        void setSeed(int s);
+        void setScale(float s);
+        void setDisplacement(float d);
 };
+
+typedef std::shared_ptr<Voronoi> pVoronoi;
 
 } // namespace noisy
 

@@ -4,7 +4,7 @@
 namespace noisy
 {
 
-Bound::Bound(Module *source, float low, float high, float oldLow, float oldHigh)
+Bound::Bound(pModule source, float low, float high, float oldLow, float oldHigh)
 {
     m_source = source;
     m_low = low;
@@ -12,11 +12,8 @@ Bound::Bound(Module *source, float low, float high, float oldLow, float oldHigh)
     m_oldLow = oldLow;
     m_oldHigh = oldHigh;
 }
-Bound::~Bound()
-{
-}
 
-void Bound::setSource(Module *source)
+void Bound::setSource(pModule source)
 {
     m_source = source;
 }

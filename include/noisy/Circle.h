@@ -2,6 +2,7 @@
 #define NOISY_CIRCLE_H
 
 #include "noisy/Module.h"
+#include <memory>
 
 namespace noisy
 {
@@ -14,11 +15,11 @@ class Circle : public Module
     public:
         Circle();
         // Sets the thrshold to radius*0.05
-        Circle(float radius, Module *inside, Module *outside);
-        Circle(float radius, Module *inside, Module *outside, float threshold);
+        Circle(float radius, pModule inside, pModule outside);
+        Circle(float radius, pModule inside, pModule outside, float threshold);
 
         void setRadius(float r);
-        void setSources(Module *inside, Module *outside);
+        void setSources(pModule inside, pModule outside);
         void setThreshold(float threshold);
 
         virtual float getValue(float x, float y);
@@ -27,9 +28,11 @@ class Circle : public Module
         // the radius sqaured. sqrt is slow, so we avoid it
         float m_radiusSq;
         float m_thresholdSq;
-        Module *m_inside;
-        Module *m_outside;
+        pModule m_inside;
+        pModule m_outside;
 };
+
+typedef std::shared_ptr<Circle> pCircle;
 
 }; // end namespace Noise
 

@@ -7,8 +7,4 @@ Module::Module()
 {
 }
 
-Module::~Module()
-{
-}
-
 } // end namespace noisy

@@ -2,15 +2,12 @@
 
 namespace noisy
 {
-Cache::Cache(Module *source)
+Cache::Cache(pModule source)
 {
     m_source = source;
     m_stored_2d = m_stored_3d = false;
 }
 
-Cache::~Cache()
-{
-}
 // checks if xy are the same as teh stored values and returns the stored one if they are
 // other wise get a new one
 float Cache::getValue(float x, float y)

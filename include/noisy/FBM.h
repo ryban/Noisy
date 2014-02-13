@@ -3,6 +3,7 @@
 
 #include "noisy/Module.h"
 #include "noisy/Simplex.h"
+#include <memory>
 
 // the basic Fractal Browning Motion noise module
 
@@ -38,6 +39,8 @@ class FBM : public Module
         void setGain(float g);
         void setAutoBound(bool b);
 };
+
+typedef std::shared_ptr<FBM> pFBM;
 
 } // end namespace Noise
 

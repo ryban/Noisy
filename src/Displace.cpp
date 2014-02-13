@@ -3,7 +3,7 @@
 namespace noisy
 {
 
-Displace::Displace(Module *source, float x, float y, float z)
+Displace::Displace(pModule source, float x, float y, float z)
 {
     setSource(source);
     setDisplacement(x, y, z);
@@ -23,7 +23,7 @@ void Displace::setDisplacement(float dx, float dy, float dz)
     m_dy = dy;
     m_dz = dz;
 }
-void Displace::setSource(Module *source)
+void Displace::setSource(pModule source)
 {
     m_source = source;
 }

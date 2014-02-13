@@ -2,6 +2,8 @@
 #define NOISY_RIDGEMULTI_H
 
 #include "noisy/Simplex.h"
+#include <memory>
+
 namespace noisy
 {
 
@@ -37,6 +39,8 @@ class RidgedMulti : public Module
 
 		Simplex simplex;
 };
+
+typedef std::shared_ptr<RidgedMulti> pRidgedMulti;
 
 } // end namespace noisy
 
