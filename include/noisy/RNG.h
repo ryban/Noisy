@@ -9,17 +9,17 @@
 #define COINFLIP_MASK (1)
 class RNG
 {
-	public:
+    public:
         RNG(int seed);
-		RNG();
-		~RNG();
-		void setSeed(int seed);
+        RNG();
+        ~RNG();
+        void setSeed(int seed);
         int getInt(int l=0, int h=MY_RAND_MAX);
         float getFloat(float l=0.0, float h=1.0);
         float getDouble(float l=0.0, float h=1.0);
         bool coinFlip();
-	private:
-		int m_lastValue;
+    private:
+        int m_lastValue;
         unsigned int getNextValue();
 
 
