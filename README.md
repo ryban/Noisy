@@ -1,7 +1,7 @@
 Noisy
 =====
 
-A small C++ library for generating coherent noise such as Simplex noise, Fractal Brownian Motion, Ridged Multi fractals, Voronoi. Provides functionality to combine the noise functions in numerous ways.
+A small C++ library for generating coherent noise such as Simplex noise, Fractal Brownian Motion, Ridged Multi fractals, and Voronoi noise. Provides functionality to combine the noise functions in numerous ways.
 
 Building
 =====
